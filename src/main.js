@@ -22,6 +22,9 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(ElementUI);
 
+// 6 引入normalize.css 基础样式
+import 'normalize.css';
+
 new Vue({
   el:'#app',
   render: function (createElement) {
