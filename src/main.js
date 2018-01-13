@@ -1,6 +1,7 @@
 //1.1 导入第三方包
 import Vue from 'vue';
 import VueRouter from "vue-router";
+// 引入全局样式
 import "./less/index.less";
 
 // 1.2启动vue

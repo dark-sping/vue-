@@ -1,103 +1,112 @@
 <template>
   <div class="login">
-    <el-form :model="ruleForm2" status-icon :rules="rules" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
-      <el-form-item label="姓名" prop="uname">
-        <el-input type="name" v-model="uname" auto-complete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="登录密码" prop="upwd">
-        <el-input type="password" v-model="upwd" auto-complete="off"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" >登陆</el-button>
-        <el-button >重置</el-button>
-      </el-form-item>
+    <h1>后台管理</h1>
+    <!-- model用来关联表单数据, rules用来指定校验规则 -->
+    <el-form label-position="left" label-width="80px" ref="ruleForm2" 
+        :model="formLabelAlign" :rules="rules">
+        <!-- 如果要表单校验与重置功能, 必须加上prop属性 -->
+        <el-form-item label="账号" prop="uname">
+            <el-input v-model="formLabelAlign.uname"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="upwd">
+            <el-input v-model="formLabelAlign.upwd"></el-input>
+        </el-form-item>
+        <el-form-item>
+            <el-button type="primary" @click="submitForm('ruleForm2')">立即创建</el-button>
+            <el-button @click="resetForm('ruleForm2')">重置</el-button>
+        </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-      var checkAge = (rule, value, callback) => {
-        if (!value) {
-          return callback(new Error('年龄不能为空'));
+  data () {
+    // 校验账号, 将来配置到下面的validator配置项
+    function unameFn(rule, value, callback) {
+        if(value == '') {
+            callback(new Error('账号不能为空'))
+        }else {
+            callback();
         }
-        setTimeout(() => {
-          if (!Number.isInteger(value)) {
-            callback(new Error('请输入数字值'));
-          } else {
-            if (value < 18) {
-              callback(new Error('必须年满18岁'));
-            } else {
-              callback();
-            }
-          }
-        }, 1000);
-      };
-      var validatePass = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请输入密码'));
-        } else {
-          if (this.ruleForm2.checkPass !== '') {
-            this.$refs.ruleForm2.validateField('checkPass');
-          }
+    }
+
+    // 校验密码, 将来配置到下面的validator配置项
+    function upwdFn(rule, value, callback) {
+      if(value == '') {
+          callback(new Error('密码不能为空'))
+      }else {
           callback();
-        }
-      };
-      var validatePass2 = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请再次输入密码'));
-        } else if (value !== this.ruleForm2.pass) {
-          callback(new Error('两次输入密码不一致!'));
-        } else {
-          callback();
-        }
-      };
-      return {
-        ruleForm2: {
-          pass: '',
-          checkPass: '',
-          age: ''
-        },
-        rules2: {
-          pass: [
-            { validator: validatePass, trigger: 'blur' }
-          ],
-          checkPass: [
-            { validator: validatePass2, trigger: 'blur' }
-          ],
-          age: [
-            { validator: checkAge, trigger: 'blur' }
-          ]
-        }
-      };
-    },
-    methods: {
-      submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            alert('submit!');
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
-      },
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
       }
     }
+
+    return {
+
+      formLabelAlign:{
+        uname:'',
+        upwd:''
+      },
+      // 表单校验规则
+      rules: {
+        uname: [ 
+          { required: true, message: '请填写账号', trigger: 'blur' },
+           { min: 3, max: 18, message: '账号在6~18位', trigger: 'blur' },
+          {validator: unameFn, trigger: 'blur'} 
+        ],
+        upwd: [ 
+          {validator: upwdFn, trigger: 'blur'},
+          { pattern: /^\w{6,18}$/, message: '密码在6~18位', trigger: 'blur' }, 
+        ]
+      }
+    }
+  },
+
+  methods: {
+    // 登陆
+    login() {
+        this.$http.post(this.$api.login, this.formLabelAlign).then(res => {
+            if(res.data.status == 0) {
+                 this.$router.push({ name: 'admin' });
+            }else {
+                this.$alert(res.data.message);
+            }
+        });
+    },
+
+    // 表单提交
+    submitForm(formName) {
+      this.$refs[formName].validate(vali => {
+        if(vali) {
+            this.login();
+        }else {
+            this.$alert('哥们! 不带这么玩的');
+        }
+      });
+    },
+    // 重置
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+    }
   }
-};
+}
 </script>
 
 <style scoped>
 .login {
+  color: #fff;
   width: 400px;
   height: 200px;
   position: relative;
   top: 25%;
   transform: translate(125%);
-  background-color: pink;
+  /* background-color: pink; */
 }
+h1 {
+    position: absolute;
+    top: -60px;
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+    color: #fff;
+  }
 </style>
