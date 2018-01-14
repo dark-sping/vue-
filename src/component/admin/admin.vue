@@ -1,6 +1,6 @@
 <template>
-<el-container>
-  <el-aside width="200px" class="aside">
+<el-container class="Aside">
+  <el-aside width="200px" >
     <Aside></Aside>
   </el-aside>
   <el-container>
@@ -29,20 +29,20 @@ import Aside from "./common/Aside.vue";
 
 <style scoped>
   .el-header, .el-footer {
-    background-color: #B3C0D1;
+    background-color: rgb(209, 128, 202);
     color: #333;
   }
   
   .el-aside {
-    background-color: #D3DCE6;
+    background-color: rgb(107, 241, 241);
     color: #333;
   }
   
   .el-main {
-    background-color: #E9EEF3;
+    background-color: rgb(215, 243, 148);
     color: #333;
   }
-  .aside{
-    height: 100%;
+  .Aside{
+    height:100%;
   }
 </style>
