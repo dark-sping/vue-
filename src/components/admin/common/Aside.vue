@@ -7,8 +7,9 @@
   background-color='#267cb7'
    text-color="#fff">
  
-  
+  <h1>学生管理系统</h1>
   <el-submenu  v-for='item in menu' :key='item.title' :index="item.title">
+    
     <!-- 标题部分 -->
     <template slot="title">
      <i data-v-2681679a class="el-icon-message"  color="#fff"></i>
@@ -64,7 +65,7 @@
           {
             title:'购物商城',
             chlidren:[
-              {title:'内容管理',path:'/a'},
+              {title:'内容管理',path:'/admin/goods/goodslist'},
               {title:'类别管理',path:'/b'},
               {title:'评论管理',path:'/c'},
             ]
@@ -91,6 +92,10 @@
   }
 </script>
 <style scoped>
-
+h1{
+  font-size: 24px;
+  text-align: center;
+  line-height: 50px;
+}
 
 </style>

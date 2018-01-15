@@ -7,13 +7,15 @@ import "./less/index.less";
 // 1.2启动vue
 Vue.use(VueRouter);
 // 2.1 导入自己写的根组件
-import App from './component/App.vue'
+import App from './components/App.vue'
 // 2.2导入路由 路由书写写的文件  并将路由挂载到vue对象中  再去路由文件index.js中设置组件路由
 import routerConfig from "./router/index.js";
 // 3导入axios 因为axios不是插件 不用use
 import axios from "axios";
-// axios.defaults.baseURL = "http://157.122.54.189:9095";参数网络地址
-axios.defaults.baseURL ='localhost: 8899'//参数本地地址
+axios.defaults.baseURL = "http://157.122.54.189:9095";//参数网络地址
+// axios.defaults.baseURL ='http://localhost:8899'//参数本地地址、
+// 我们是跨域请求的接口, 默认不会携带cookie等信息, 后端需要这些信息来判断登陆状态, 所以要设为true
+axios.defaults.withCredentials = true;
 Vue.prototype.$http = axios; //将axios添加到原型中
 
 // 4 导入api配置对象, 为了使用更加方便, 把它也加到原型中
