@@ -29,13 +29,13 @@ import Aside from "./common/Aside.vue";
 
 <style scoped>
   .el-header, .el-footer {
-    background-color: rgb(209, 128, 202);
-    color: #333;
+    background: #fff;
+    color: #48576a;
   }
   
   .el-aside {
-    background-color: rgb(107, 241, 241);
-    color: #333;
+    background-color: #267cb7;
+    color: #fff;
   }
   
   .el-main {

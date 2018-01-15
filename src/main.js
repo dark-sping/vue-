@@ -12,7 +12,8 @@ import App from './component/App.vue'
 import routerConfig from "./router/index.js";
 // 3导入axios 因为axios不是插件 不用use
 import axios from "axios";
-axios.defaults.baseURL = "http://157.122.54.189:9095";
+// axios.defaults.baseURL = "http://157.122.54.189:9095";参数网络地址
+axios.defaults.baseURL ='localhost: 8899'//参数本地地址
 Vue.prototype.$http = axios; //将axios添加到原型中
 
 // 4 导入api配置对象, 为了使用更加方便, 把它也加到原型中
