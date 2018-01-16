@@ -1,39 +1,45 @@
-//1.1 导入第三方包
+// 导入默认初始化样式
+import 'normalize.css';
+// 导入自己写的全局样式
+import './less/index.less';
+
+// 1.1 导入vue相关的第三方包
 import Vue from 'vue';
-import VueRouter from "vue-router";
-// 引入全局样式
-import "./less/index.less";
-
-// 1.2启动vue
-Vue.use(VueRouter);
-// 2.1 导入自己写的根组件
-import App from './components/App.vue'
-// 2.2导入路由 路由书写写的文件  并将路由挂载到vue对象中  再去路由文件index.js中设置组件路由
-import routerConfig from "./router/index.js";
-// 3导入axios 因为axios不是插件 不用use
-import axios from "axios";
-axios.defaults.baseURL = "http://157.122.54.189:9095";//参数网络地址
-// axios.defaults.baseURL ='http://localhost:8899'//参数本地地址、
-// 我们是跨域请求的接口, 默认不会携带cookie等信息, 后端需要这些信息来判断登陆状态, 所以要设为true
-axios.defaults.withCredentials = true;
-Vue.prototype.$http = axios; //将axios添加到原型中
-
-// 4 导入api配置对象, 为了使用更加方便, 把它也加到原型中
-import api from "./js/api-config.js";
-Vue.prototype.$api = api;
-
-// 5引入element-units
-import ElementUI from 'element-ui'
+import VueRouter from 'vue-router';
+import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css'
+
+// 1.2 启动vue插件
+Vue.use(VueRouter);
 Vue.use(ElementUI);
 
-// 6 引入normalize.css 基础样式
-import 'normalize.css';
+// 2.1 导入自己写的根组件
+import App from './component/App.vue';
 
+// 2.2 导入路由配置
+import routerConfig from './router/index.js';
+
+// 3 导入axios, 因为它不是vue插件, 使用起来不方便, 所以我们手动把它加到原型中, 方便使用
+import axios from 'axios';
+axios.defaults.baseURL = "http://157.122.54.189:9095";//参数网络地址
+// axios.defaults.baseURL = 'http://localhost:8899'; // 一配置, 以后所有的请求就会自动使用这个域名
+axios.defaults.withCredentials=true; // 浏览器有个安全机制, 如果是跨域请求, 浏览器是不会把本地cookie信息携带过去的
+Vue.prototype.$http = axios;
+
+// 4 导入api配置对象, 为了使用更加方便, 把它也加到原型中
+import api from './js/api-config.js';
+Vue.prototype.$api = api;
+
+// 5 路由实例
+import beforeEach from './router/beforeEach.js'; // 使用一个文件编写路由守卫
+let vueRouter = new VueRouter(routerConfig);     // 创建路由实例
+vueRouter.beforeEach(beforeEach);                // 注册守卫
+
+// 把根组件渲染到指定视图
 new Vue({
-  el:'#app',
-  render: function (createElement) {
-    return createElement(App);
-  },
-  router:new VueRouter(routerConfig)
-})
+    el: '#app',
+    render: function(createElement) {
+        return createElement(App);
+    },
+    router: vueRouter
+});
