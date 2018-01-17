@@ -1,38 +1,45 @@
 // 导入组件
-import Login from "../components/login/Login.vue";
-import Admin from "../components/admin/admin.vue";
-// 资源下载
-//资源下载-内容管理
-import downarticlelist from '../components/admin/down/downartlist.vue';
-import downartadd from '../components/admin/down/artadd.vue';
-import downartedit from '../components/admin/down/artedit.vue';
+import Login from '../component/login/Login.vue';
+import Admin from '../component/admin/Admin.vue';
 
-//资源下载-类别管理
-import downcatelist from '../components/admin/down/categorylist.vue';
-import downcateadd from '../components/admin/down/categoryadd.vue';
-import downcateedit from '../components/admin/down/categoryedit.vue';
+// 导入商品模块页面组件
+import GoodsCtList from '../component/admin/goods/content/List.vue';
+import GoodsCtEdit from '../component/admin/goods/content/Edit.vue';
+import GoodsCgList from '../component/admin/goods/category/List.vue';
+import GoodsCgEdit from '../component/admin/goods/category/Edit.vue';
 
-// 购物商城
-// 购物商城-内容管理
-import goodslist from '../components/admin/goods/goodslist.vue';
-import goodsadd from '../components/admin/goods/goodsadd.vue';
-import goodsedit from '../components/admin/goods/goodsedit.vue';
+// admin页面的子路由
+let adminChildren = [
+    // 商品模块 => 内容管理
+    { name: 'goodsCtList', path: 'goods/content/list', component: GoodsCtList },
+    { name: 'goodsCtEdit', path: 'goods/content/edit/:id', component: GoodsCtEdit },
+    { name: 'goodsCtAdd', path: 'goods/content/add', component: GoodsCtEdit },
 
-// 购物商城-类别管理
-import goodscatelist from '../components/admin/goods/goodscatelist.vue';
-import goodscateadd from '../components/admin/goods/categoryadd.vue';
-import goodscateedit from '../components/admin/goods/categoryedit.vue';
+    // 商品模块 => 商品分类
+    { name: 'goodsCgList', path: 'goods/category/list', component: GoodsCgList },
+    { name: 'goodsCgEdit', path: 'goods/category/edit/:id', component: GoodsCgEdit },
+    { name: 'goodsCgAdd', path: 'goods/category/add', component: GoodsCgEdit },
+];
 
-export default{
-  routes:[
-    { name: 'login', path: '/login', component: Login },
-    {name: 'admin', path: '/admin', component: Admin, children: [
-      { name: 'downarticlelist', path: 'downloads/downarticlelist', component: downarticlelist },
-      { name: 'downcateadd', path: 'downloads/downcateadd', component: downcateadd },
+// 该文件对外导出路由配置
+export default {
 
+<<<<<<< HEAD
       { name: 'goodslist', path: 'goods/goodslist', component: goodslist },
       { name: 'goodsadd', path: 'goods/goodsadd', GoodsCtList: goodsadd },
       { name: 'goodsedit', path: 'goods/goodsedit', GoodsCtList: goodsedit },
       ] }
   ]
 }
+=======
+    routes: [
+        // 登陆
+        { name: 'login', path: '/login', component: Login },
+
+        // 后台管理
+        { path: '/', redirect: '/admin' },
+        { name: 'admin', path: '/admin', component: Admin, children: adminChildren },
+    ]
+
+};
+>>>>>>> 6a596c665c5b147253595b322ce5b7f0ea84836d

@@ -1,11 +1,11 @@
 {
   "name": "project",
   "version": "1.0.0",
-  "description": "Created Electricity project use Vue",
+  "description": "使用vue栈做的个人商城",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --inline --hot --open --port 8080"
+    "dev": "webpack-dev-server --inline --hot --open --port 8888"
   },
   "author": "feifei",
   "license": "ISC",
