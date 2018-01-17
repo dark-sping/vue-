@@ -66,7 +66,7 @@
             title:'购物商城',
             chlidren:[
               {title:'内容管理',path:'/admin/goods/goodslist'},
-              {title:'类别管理',path:'/b'},
+              {title:'类别管理',path:'/admin/goods/goodsedit'},
               {title:'评论管理',path:'/c'},
             ]
           },

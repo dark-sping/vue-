@@ -32,6 +32,7 @@ export default{
 
       { name: 'goodslist', path: 'goods/goodslist', component: goodslist },
       { name: 'goodsadd', path: 'goods/goodsadd', GoodsCtList: goodsadd },
+      { name: 'goodsedit', path: 'goods/goodsedit', GoodsCtList: goodsedit },
       ] }
   ]
 }

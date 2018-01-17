@@ -66,7 +66,10 @@ export default {
     login() {
         this.$http.post(this.$api.login, this.formLabelAlign).then(res => {
             if(res.data.status == 0) {
-                 this.$router.push({ name: 'admin' });
+              // 对登陆进一步进行判断  获取路由地址的两种方法  第一种：this.$route.query.路由 
+              let nextPage = this.$route.query.nextPage;
+              // 三元判断登陆的页面
+               this.$router.push({path: nextPage ? nextPage:'/admin'});
             }else {
                 this.$alert(res.data.message);
             }
